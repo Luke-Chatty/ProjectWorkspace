@@ -1,3 +1,5 @@
+[![version][version-badge]][CHANGELOG] [![license][license-badge]][LICENSE]
+
 ##Version 1.0 (27/09/19)##
 
 Replaced bat script.
