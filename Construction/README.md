@@ -34,5 +34,5 @@ Add $ProgressPreference = 'SilentlyContinue' to prevent import module progress b
 [source]: source/
 [pull-request]: https://help.github.com/articles/creating-a-pull-request/
 [fork]: https://help.github.com/articles/fork-a-repo/
-[version-badge]: https://img.shields.io/badge/version-1.0.0-blue.svg
+[version-badge]: https://img.shields.io/badge/version-1.8-blue.svg
 [license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
