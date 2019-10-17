@@ -1,9 +1,16 @@
 [![version][version-badge]][CHANGELOG]
 
-### Construction Projects - Project Workspace
+# Construction Projects - Project Workspace
 
+Project Workspace Script for Construction Projects
 
-# Changelog
+Updates and links to download will be saved here.
+
+[Download Powershell]
+
+[Download Executable (.exe)]
+
+## Changelog
 All notable changes and history will be saved here. 
 
 ## Version [1.4] - 30/09/19
@@ -43,3 +50,4 @@ Created and configured GUI to ease process
 [ruby-version]: .ruby-version
 [source]: source/
 [version-badge]: https://img.shields.io/badge/version-1.8-blue.svg
+[Download] 
