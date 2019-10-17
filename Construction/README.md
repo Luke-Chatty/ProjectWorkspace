@@ -26,3 +26,13 @@ Import-Module ActiveDirectory added as manual step upon launch to prevent errors
 ##Version 1.3 (30/09/19)##
 Add $ProgressPreference = 'SilentlyContinue' to prevent import module progress bar from loading
 
+
+[CHANGELOG]: ./CHANGELOG.md
+[LICENSE]: ./LICENSE
+[rbenv]: https://github.com/rbenv/rbenv
+[ruby-version]: .ruby-version
+[source]: source/
+[pull-request]: https://help.github.com/articles/creating-a-pull-request/
+[fork]: https://help.github.com/articles/fork-a-repo/
+[version-badge]: https://img.shields.io/badge/version-1.0.0-blue.svg
+[license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
