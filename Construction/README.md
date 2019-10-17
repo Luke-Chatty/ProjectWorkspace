@@ -10,7 +10,7 @@ Updates and links to download will be saved here.
 
 [Download Executable (.exe)]
 
-## Latest Changelog
+## Latest [Changelog]
 All notable changes and history will be saved here. 
 
 ## Version [1.4] - 30/09/19
