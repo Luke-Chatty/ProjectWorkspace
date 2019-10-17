@@ -1,4 +1,4 @@
-[![version][version-badge]][CHANGELOG] [![license][license-badge]][LICENSE]
+[![version][version-badge]][CHANGELOG]
 
 ### Construction Projects - Project Workspace
 
