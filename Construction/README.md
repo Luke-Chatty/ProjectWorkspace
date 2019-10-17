@@ -33,7 +33,7 @@ All notable changes and history will be saved here.
 - Import-Module ActiveDirectory added as manual step upon launch to prevent errors later on in script.
 
 
-## Version [1.0] 27/09/1
+## Version [1.0] 27/09/19
 
 ### Added
 Replaced bat script.
