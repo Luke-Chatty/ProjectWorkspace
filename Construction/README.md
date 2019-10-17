@@ -50,4 +50,5 @@ Created and configured GUI to ease process
 [ruby-version]: .ruby-version
 [source]: source/
 [version-badge]: https://img.shields.io/badge/version-1.8-blue.svg
-[Download] 
+[Download Powershell]: https://github.com/LukeSeddon/ProjectWorkspace/blob/master/Construction/PWS-Construction.ps1
+[Download Executable (.exe)]: https://github.com/LukeSeddon/ProjectWorkspace/blob/master/Construction/PWS-Construction.exe
