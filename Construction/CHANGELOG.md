@@ -13,8 +13,14 @@ All notable changes and history will be saved here.
 
 ### Removed
 
-##Version 1.3 (30/09/19)##
-Add $ProgressPreference = 'SilentlyContinue' to prevent import module progress bar from loading
+## [1.3] - 30/09/19
+### Added
+- Add $ProgressPreference = 'SilentlyContinue' to prevent import module progress bar from loading
+
+## [1.2] - 30/09/19
+### Added 
+- Import-Module ActiveDirectory added as manual step upon launch to prevent errors later on in script.
+
 
 [1.4]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.3.0...v1.0.0
 
