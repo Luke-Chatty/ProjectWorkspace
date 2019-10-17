@@ -1,7 +1,8 @@
 # ProjectWorkspace
 
-Engineering Services Tenders
-
-[Construction Projects]
+ - [Construction Projects]
+ 
+ - [Engineering Services Tenders]
 
 [Construction Projects]: ./Construction
+[Engineering Services Tenders]: ./Engineering-Services-Tenders
