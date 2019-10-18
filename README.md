@@ -16,12 +16,18 @@
 
 # Project Workspace Scripts
 
+ - [Business Services]
+ 
  - [Construction Projects]
  
+ - [Development Projects]
+ 
  - [Engineering Services Tenders]
+  
+ - [Pre-Construction Projects]
+ 
+ - [Pre-Qualification Projects]
 
-[Construction Projects]: ./Construction
-[Engineering Services Tenders]: ./Engineering%20Services%20Tenders
 
 ### Prerequisites
 
@@ -55,3 +61,9 @@ Luke Chatburn - [@LukeChatburn](https://twitter.com/LukeChatburn) - email
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
 [product-screenshot]: images/screenshot.png
+[Business Services]: ./Business%20Services
+[Construction Projects]: ./Construction%20Projects
+[Engineering Services Tenders]: ./Engineering%20Services%20Tenders
+[Development Projects]: ./Development%20Projects
+[Pre-Construction Projects] ./Pre-Construction%20Projects
+[Pre-Qualification Projects] ./Pre-Qualification$20Projects
