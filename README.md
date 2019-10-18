@@ -38,7 +38,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Construction][product-screenshot]]
+[product-screenshot]
 
 
 <!-- CONTACT -->
