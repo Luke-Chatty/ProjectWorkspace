@@ -33,5 +33,5 @@ All notable changes and history will be saved here.
 [ruby-version]: .ruby-version
 [source]: source/
 [version-badge]: https://img.shields.io/badge/version-1.4-blue.svg
-[Download Powershell]: https://github.com/LukeSeddon/ProjectWorkspace/blob/master/Construction/PWS-Construction.ps1
-[Download Executable (.exe)]: https://github.com/LukeSeddon/ProjectWorkspace/blob/master/Construction/PWS-Construction.exe
+[Download Powershell]: https://github.com/LukeSeddon/ProjectWorkspace/blob/master/Construction%20Projects/PWS-Construction.ps1
+[Download Executable (.exe)]: https://github.com/LukeSeddon/ProjectWorkspace/blob/master/Construction%20Projects/PWS-Construction.exe

@@ -31,6 +31,6 @@ Replaced xcopy with robocopy.
 Created and configured GUI to ease process
 
 
-[1.4]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.3.0...v1.0.0
+[1.4]:
 
 
