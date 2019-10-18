@@ -26,7 +26,7 @@
 ### Prerequisites
 
 * Active Directory Access : Account Operator
-* Active Direct Access : PWS - ITAdministrators
+* Active Directory Access : PWS - ITAdministrators
 * Powershell 5.1 or Powershell Active Directory Module
 
 <!-- ABOUT THE PROJECT -->
