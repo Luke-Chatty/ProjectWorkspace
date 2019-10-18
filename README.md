@@ -38,7 +38,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[product-screenshot]
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 
 <!-- CONTACT -->
