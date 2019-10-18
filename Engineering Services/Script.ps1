@@ -23,6 +23,9 @@ Write-Host Copying Template and Creating New Folder -ForegroundColor Green
 
 #PerissionVariables
 $SG = "SEDDONAD\PWS - $PWSID"
+$SGIT = "SEDDONAD\PWS - IT Administrators"
+$SGSYSTEM = "SYSTEM"
+$SGDA = "SEDDONAD\Domain Admins"
 $CDest = "\\seddonad.com\ProjectWorkspace\Engineering Services Tenders\$PWSID $PWSName"
 $CSource = "\\seddonad.com\ProjectWorkspace\Engineering Services Tenders\EngineeringServicesTemplate"
 
@@ -31,10 +34,16 @@ robocopy "$CSource" "$CDest" /COPY:DAS /E /NFL /NDL /NJH /NJS
 
 #iCACLS Variables
 $strGrant = "/grant"
+$strInh = "/inheritance:r"
+$strDeny = "/deny"
 
 $strIcaclsPrms1 = ":(CI)(R,X,RD,RA,REA,WA,WEA)" #Top Level Folder Permisions
-$strIcaclsPrms2 = ":(OI)(CI)(R,X,RD,RA,REA,WD,WA,WEA,AD,D)" #Folder Level Permissions
-$strIcaclsPrms3 = ":(OI)(IO)(R,X,RD,RA,REA,WD,WA,WEA,AD,D)" #File Level Permission
+$strIcaclsPrms2 = ":(OI)(CI)(R,X,RD,RA,REA,WD,WA,WEA,AD,D,DC)" #Files Only Permission
+$strICaclsPrms3 = ":(OI)(CI)(F)" #Default Groups after Inheritence is disabled
+$strIcaclsPrms4 = ":(OI)(CI)(IO)(M,DC)" #Create folders but not delete root folder pt1
+$strIcaclsPrms5 = ":(RX,WD,AD)" #Create folders but not delete root folder pt2
+
+
 
 $strIcaclsDefaultPath = "\\seddonad.com\projectworkspace\Engineering Services Tenders\$PWSID $PWSName"
 
@@ -48,21 +57,32 @@ Write-Host Setting Permissions -ForegroundColor Green
 
 #File Permissions 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication" $strGrant "$SG$strIcaclsPrms1" /t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\1. Prelim Book" $strGrant "$SG$strIcaclsPrms2" /t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\1. Prelim Book" $strGrant "$SG$strIcaclsPrms3" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\1. Prelim Book" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\1. Prelim Book" $strGrant "$SG$strIcaclsPrms4"')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\1. Prelim Book" $strGrant "$SG$strIcaclsPrms5"')
 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\2. Mechanical Cost" $strGrant "$SG$strIcaclsPrms1"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\3. Electrical Cost" $strGrant "$SG$strIcaclsPrms1"/t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\2. Mechanical Cost" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\2. Mechanical Cost" $strGrant "$SG$strIcaclsPrms4"')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\2. Mechanical Cost" $strGrant "$SG$strIcaclsPrms5"')
+
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\3. Electrical Cost" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\3. Electrical Cost" $strGrant "$SG$strIcaclsPrms4"')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\3. Electrical Cost" $strGrant "$SG$strIcaclsPrms5"') 
 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\2. Tender Launch" $strGrant "$SG$strIcaclsPrms1" /t')
 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\0. File Set Up" $strGrant "$SG$strIcaclsPrms2"/t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\1. ITT" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\2. Drawings" $strGrant "$SG$strIcaclsPrms1"/t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\2. Drawings" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\2. Drawings" $strGrant "$SG$strIcaclsPrms4"') 
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\2. Drawings" $strGrant "$SG$strIcaclsPrms5"') 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\3. Specification" $strGrant "$SG$strIcaclsPrms2"/t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\4. Employers Requirements" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\5. Quotations" $strGrant "$SG$strIcaclsPrms1"/t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\5. Quotations" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\5. Quotations" $strGrant "$SG$strIcaclsPrms4"') 
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\5. Quotations" $strGrant "$SG$strIcaclsPrms5"') 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\6. Emails" $strGrant "$SG$strIcaclsPrms2"/t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\7. Take Off Sheets" $strGrant "$SG$strIcaclsPrms2"/t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\8. Tender" $strGrant "$SG$strIcaclsPrms1"/t')
