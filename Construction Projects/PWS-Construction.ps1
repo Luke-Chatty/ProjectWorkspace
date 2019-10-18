@@ -189,7 +189,7 @@ $SG = "SEDDONAD\PWS - $PWSID"
 
 $strGrant = "/grant"
 $strIcaclsPrms2 = ":(OI)(CI)(R,X,RD,RA,REA,WD,WA,WEA,D)" #File Level Permissions
-$strIcaclsPrms3 = ":(CI)(R,X,RD,RA,REA,WD,WA,WEA)" #Folder Level Permissions with Write File Access
+$strIcaclsPrms3 = ":(OI)(CI)(R,X,RD,RA,REA,WD,WA,WEA,AD,D)" #Folder Level Permissions with Write File Access
 $strIcaclsPrms1 = ":(CI)(R,X,RD,RA,REA,WA,WEA)" #Top Level Folder Permissions
 $strIcaclsDefaultPath = "\\seddonad.com\ProjectWorkspace\Construction Projects\$PWSID $PWSName"
 
