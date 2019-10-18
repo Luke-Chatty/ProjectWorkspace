@@ -8,7 +8,7 @@
   <h3 align="center">Project Workspace</h3>
 
   <p align="center">
-    A Collection of Scripts to automate the Process of creating PWS Folders.
+    A collection of scripts to automate the process of creating PWS Folders.
   </p>
 </p>
 
