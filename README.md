@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/github_username/repo">
+  <a href="https://github.com/LukeSeddon/repo">
     <img src="images/icon.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -9,15 +9,6 @@
 
   <p align="center">
     A Collection of Scripts to automate the Process of creating PWS Folders.
-    <br />
-    <a href="https://github.com/github_username/repo"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/github_username/repo">View Demo</a>
-    ·
-    <a href="https://github.com/github_username/repo/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/github_username/repo/issues">Request Feature</a>
   </p>
 </p>
 
