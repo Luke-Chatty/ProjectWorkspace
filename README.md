@@ -65,5 +65,5 @@ Luke Chatburn - [@LukeChatburn](https://twitter.com/LukeChatburn) - email
 [Construction Projects]: ./Construction%20Projects
 [Engineering Services Tenders]: ./Engineering%20Services%20Tenders
 [Development Projects]: ./Development%20Projects
-[Pre-Construction Projects] ./Pre-Construction%20Projects
-[Pre-Qualification Projects] ./Pre-Qualification%20Projects
+[Pre-Construction Projects]: ./Pre-Construction%20Projects
+[Pre-Qualification Projects]: ./Pre-Qualification%20Projects
