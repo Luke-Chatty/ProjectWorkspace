@@ -172,16 +172,6 @@ function IsThereText
 		$CreateButton.Enabled = $false
 	}
 }
-{
-	if ($PWSIDText.Text.Length -eq "S0500")
-	{
-		$CreateButton.Enabled = $true
-	}
-	else
-	{
-		$CreateButton.Enabled = $false
-	}
-}
 
 
 $CreateButton.Add_Click({
