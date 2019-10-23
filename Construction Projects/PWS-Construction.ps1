@@ -188,6 +188,7 @@ $CSource = "\\seddonad.com\ProjectWorkspace\Construction Projects\ContractTempla
 $SG = "SEDDONAD\PWS - $PWSID"
 
 $strGrant = "/grant"
+$strInh = "/inheritance:r"
 $strIcaclsPrms2 = ":(OI)(CI)(R,X,RD,RA,REA,WD,WA,WEA,D)" #File Level Permissions
 $strIcaclsPrms3 = ":(OI)(CI)(R,X,RD,RA,REA,WD,WA,WEA,AD,D)" #Folder Level Permissions with Write File Access
 $strIcaclsPrms1 = ":(CI)(R,X,RD,RA,REA,WA,WEA)" #Top Level Folder Permissions
