@@ -322,8 +322,9 @@ Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\7.0 Commercial\7.25 L
 
 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\8.0 Handover and Aftercare" $strGrant "$SG$strIcaclsPrms1" /t')
-
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\8.0 Handover and Aftercare\8.1 O&M" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\8.0 Handover and Aftercare\8.1 O&M" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\8.0 Handover and Aftercare\8.1 O&M" $strGrant "$SG$strIcaclsPrms4"')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\8.0 Handover and Aftercare\8.1 O&M" $strGrant "$SG$strIcaclsPrms5"')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\8.0 Handover and Aftercare\8.2 Customer Care" $strGrant "$SG$strIcaclsPrms2" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\8.0 Handover and Aftercare\8.3 As Built Drawings" $strGrant "$SG$strIcaclsPrms2" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\8.0 Handover and Aftercare\8.4 Defect Management" $strGrant "$SG$strIcaclsPrms2" /t')
