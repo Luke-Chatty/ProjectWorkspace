@@ -38,7 +38,7 @@ $strInh = "/inheritance:r"
 $strDeny = "/deny"
 
 $strIcaclsPrms1 = ":(CI)(R,X,RD,RA,REA,WA,WEA)" #Top Level Folder Permisions
-$strIcaclsPrms2 = ":(OI)(CI)(R,X,RD,RA,REA,WD,WA,WEA,AD,D,DC)" #Files Only Permission
+$strIcaclsPrms2 = ":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) " #Files Only Permission
 $strICaclsPrms3 = ":(OI)(CI)(F)" #Default Groups after Inheritence is disabled
 $strIcaclsPrms4 = ":(OI)(CI)(IO)(M,DC)" #Create folders but not delete root folder pt1
 $strIcaclsPrms5 = ":(RX,WD,AD)" #Create folders but not delete root folder pt2
