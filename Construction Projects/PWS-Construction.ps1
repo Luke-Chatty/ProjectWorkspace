@@ -177,6 +177,7 @@ $CreateButton.Add_Click({
 #Introduction
 
 #InitialVariables
+
 $PWSID = $PWSIDtext.text 
 $PWSName = $PWSNametext.text
 $CDest = "\\seddonad.com\ProjectWorkspace\Construction Projects\$PWSID $PWSName"
@@ -186,13 +187,18 @@ $CSource = "\\seddonad.com\ProjectWorkspace\Construction Projects\ContractTempla
 
 #iCACLS Variables
 $SG = "SEDDONAD\PWS - $PWSID"
+$SGIT = "SEDDONAD\PWS - IT Administrators"
+$SGSYSTEM = "SYSTEM"
+$SGDA = "SEDDONAD\Domain Admins"
 
 $strGrant = "/grant"
 $strInh = "/inheritance:r"
-$strIcaclsPrms2 = ":(OI)(CI)(R,X,RD,RA,REA,WD,WA,WEA,D)" #File Level Permissions
-$strIcaclsPrms3 = ":(OI)(CI)(R,X,RD,RA,REA,WD,WA,WEA,AD,D)" #Folder Level Permissions with Write File Access
-$strIcaclsPrms1 = ":(CI)(R,X,RD,RA,REA,WA,WEA)" #Top Level Folder Permissions
 $strIcaclsDefaultPath = "\\seddonad.com\ProjectWorkspace\Construction Projects\$PWSID $PWSName"
+$strIcaclsPrms1 = ":(CI)(R,X,RD,RA,REA,WA,WEA)" #Top Level Folder Permisions
+$strIcaclsPrms2 = ":(OI)(CI)(R,X,RD,RA,REA,WD,WA,WEA,AD,D,DC)" #Files Only Permission
+$strICaclsPrms3 = ":(OI)(CI)(F)" #Default Groups after Inheritence is disabled
+$strIcaclsPrms4 = ":(OI)(CI)(IO)(M,DC)" #Create folders but not delete root folder pt1
+$strIcaclsPrms5 = ":(RX,WD,AD)" #Create folders but not delete root folder pt2
 
 if ($ADGroup.Checked -eq $true)
 {
