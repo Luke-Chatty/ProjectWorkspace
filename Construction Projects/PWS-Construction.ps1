@@ -172,6 +172,17 @@ function IsThereText
 		$CreateButton.Enabled = $false
 	}
 }
+{
+	if ($PWSIDText.Text.Length -eq "S0500")
+	{
+		$CreateButton.Enabled = $true
+	}
+	else
+	{
+		$CreateButton.Enabled = $false
+	}
+}
+
 
 $CreateButton.Add_Click({
 #Introduction
@@ -193,9 +204,11 @@ $SGDA = "SEDDONAD\Domain Admins"
 
 $strGrant = "/grant"
 $strInh = "/inheritance:r"
+$strRead = "/grant:r"
 $strIcaclsDefaultPath = "\\seddonad.com\ProjectWorkspace\Construction Projects\$PWSID $PWSName"
-$strIcaclsPrms1 = ":(CI)(R,X,RD,RA,REA,WA,WEA)" #Top Level Folder Permisions
-$strIcaclsPrms2 = ":(OI)(CI)(R,X,RD,RA,REA,WD,WA,WEA,AD,D,DC)" #Files Only Permission
+$strIcaclsPrmsTopLvl = ":r"
+$strIcaclsPrms1 = ":(CI)(r,x,rd,ra,rea,wd,wa,wea)" #Top Level Folder Permisions
+$strIcaclsPrms2 = ":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d)" #Files Only Permission
 $strICaclsPrms3 = ":(OI)(CI)(F)" #Default Groups after Inheritence is disabled
 $strIcaclsPrms4 = ":(OI)(CI)(IO)(M,DC)" #Create folders but not delete root folder pt1
 $strIcaclsPrms5 = ":(RX,WD,AD)" #Create folders but not delete root folder pt2
@@ -209,10 +222,10 @@ New-ADGroup -Name "PWS - $PWSID" -GroupCategory Security -GroupScope Universal -
 #Copy Folder 
 robocopy "$CSource" "$CDest" /COPY:DAS /E /NFL /NDL /NJH /NJS
 
-##Setting Level 1 Permissions
+##Top Level Permissions
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath" $strRead "$SG$strIcaclsPrmsTopLvl"')
 
-#Root Folder Level
-Invoke-Expression -Command ('icacls $strIcaclsDefaultPath $strGrant "$SG$strIcaclsPrms1"')
+##Setting Level 1 Permissions
 
 #Permissions for 1.0##
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1.0 Contract Documents" $strGrant "$SG$strIcaclsPrms1" /t')
