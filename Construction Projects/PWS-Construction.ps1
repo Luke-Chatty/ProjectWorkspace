@@ -4,7 +4,7 @@
 .DESCRIPTION
    This script will capture user input, create an AD group in the correct OU, take a copy of the folder structure template and apply correct permissions of newly created AD group using iCACLs.
 .NOTES
-  Version:        1.8
+  Version:        1.4
   Author:         Luke Chatburn
   Creation Date:  30/09/19
   Purpose/Change: 
@@ -172,7 +172,6 @@ function IsThereText
 		$CreateButton.Enabled = $false
 	}
 }
-
 
 $CreateButton.Add_Click({
 #Introduction
