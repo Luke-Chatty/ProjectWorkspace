@@ -216,29 +216,72 @@ Invoke-Expression -Command ('icacls $strIcaclsDefaultPath $strGrant "$SG$strIcac
 
 #File Permissions 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender" $strGrant "$SG$strIcaclsPrms1" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.1 Con Doc" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.1 Con Doc" $strGrant "$SG$strIcaclsPrms2" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.2 Reports" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.2 Reports" $strGrant "$SG$strIcaclsPrms2" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.3 Arch Dwgs" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.3 Arch Dwgs" $strGrant "$SG$strIcaclsPrms2" /t')
+
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.4 Eng Dwgs" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.4 Eng Dwgs" $strGrant "$SG$strIcaclsPrms2" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.5 M&E Dwgs" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.5 M&E Dwgs" $strGrant "$SG$strIcaclsPrms2" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.6 Other Dwgs" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.6 Other Dwgs" $strGrant "$SG$strIcaclsPrms2" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.7 TA" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.7 TA" $strGrant "$SG$strIcaclsPrms2" /t')
+
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.8 Client Info" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.8 Client Info" $strGrant "$SG$strIcaclsPrms4"') 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.8 Client Info" $strGrant "$SG$strIcaclsPrms5"') 
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.9 Superceeded" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.9 Superceeded" $strGrant "$SG$strIcaclsPrms2" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\2. BoQ" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\2. BoQ" $strGrant "$SG$strIcaclsPrms2" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Supply Chain" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Supply Chain" $strGrant "$SG$strIcaclsPrms2" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Correspondence" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Correspondence" $strGrant "$SG$strIcaclsPrms2" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\5. Site Visit" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\5. Site Visit" $strGrant "$SG$strIcaclsPrms2" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\6. QA Documents" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\6. QA Documents" $strGrant "$SG$strIcaclsPrms2" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\7. Bid Submission" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\7. Bid Submission" $strGrant "$SG$strIcaclsPrms2" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\8. Bid Man Area" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\8. Bid Man Area" $strGrant "$SG$strIcaclsPrms2" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\9. Est Area" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\9. Est Area" $strGrant "$SG$strIcaclsPrms2" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\10. Planning" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\10. Planning" $strGrant "$SG$strIcaclsPrms2" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\11. Design" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\11. Design" $strGrant "$SG$strIcaclsPrms2" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\12. Final Submission" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\12. Final Submission" $strGrant "$SG$strIcaclsPrms2" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\13. Post Tender" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\13. Post Tender" $strGrant "$SG$strIcaclsPrms2" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\14. Handover" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\14. Handover" $strGrant "$SG$strIcaclsPrms2" /t')
 
 
