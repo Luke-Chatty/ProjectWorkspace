@@ -27,6 +27,6 @@ All notable changes and recent history will be saved here.
 [LICENSE]: ./LICENSE
 [ruby-version]: .ruby-version
 [source]: source/
-[version-badge]: https://img.shields.io/badge/version-1.4-blue.svg
+[version-badge]: https://img.shields.io/badge/version-1.0-blue.svg
 [Download Powershell]: https://github.com/LukeSeddon/ProjectWorkspace/blob/master/Pre-Construction%20Projects/PWS-Construction.ps1
 [Download Executable (.exe)]: https://github.com/LukeSeddon/ProjectWorkspace/blob/master/Construction%20Projects/PWS-Construction.exe
