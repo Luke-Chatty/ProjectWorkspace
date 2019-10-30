@@ -1,32 +1,13 @@
-@echo off
-
-title --- New Pre-Construction Project Library ---
-
-rem ##SetVariables##
-
-set /p _contractname= Please Enter Name of Pre Construction File(T16XXX - Name of Contract):
-
-set /p _securitygroup= Please Enter Name of Security Group (T16XXX): 
-
-rem ##Copy Folder##
-
-xcopy "\\seddonad.com\ProjectWorkspace\Pre-Construction Projects\PreConTemplate" "\\seddonad.com\ProjectWorkspace\Pre-Construction Projects\%_ContractName%" /O /X /E /H /K
-
-
 <#
 .Synopsis
-   PWS Script for Construction Projects
+   PWS Script for Pre-Construction Project
 .DESCRIPTION
    This script will capture user input, create an AD group in the correct OU, take a copy of the folder structure template and apply correct permissions of newly created AD group using iCACLs.
 .NOTES
-  Version:        1.2
+  Version:        1.0
   Author:         Luke Chatburn
-  Creation Date:  29/10/19
-  Purpose/Change: 
-Modified all anchors to allow for different resolutions. Size is no-longer fixed and if the default window is warped user can resize accordingly.
-Fixed clipping issue with Construction project label.
-Fixed permission issue where users could save outside folder structure despite not being able to see what they save.
-Set default state of checkbox to checked, 90% of the time an AD group will be created. (previously unchecked)
+  Creation Date:  30/10/19
+  Purpose/Change: Version 1 release, converted to Powershell and added GUI.
 #>
 
 
@@ -35,7 +16,7 @@ Add-Type -AssemblyName System.Windows.Forms
 
 $WinForm                         = New-Object system.Windows.Forms.Form
 $WinForm.ClientSize              = '410,350'
-$WinForm.text                    = "PWS - New Engineering Services Tenders"
+$WinForm.text                    = "PWS - New Pre-Construction Project"
 $WinForm.TopMost                 = $false
 $WinForm.BackColor               = "#f7fcff"
 
@@ -103,7 +84,7 @@ $PWSName.Font                    = 'Segoe UI,10'
 
 $PWSIDText                       = New-Object system.Windows.Forms.TextBox
 $PWSIDText.multiline             = $false
-$PWSIDText.text                  = "EST19XXX"
+$PWSIDText.text                  = "T19XXX"
 $PWSIDText.width                 = 152
 $PWSIDText.height                = 20
 $PWSIDText.Anchor                = 'top,right'
@@ -120,7 +101,7 @@ $Label2.location                 = New-Object System.Drawing.Point(13,93)
 $Label2.Font                     = 'Segoe UI,10'
 
 $Label3                          = New-Object system.Windows.Forms.Label
-$Label3.text                     = "Engineering Services Tenders Folder."
+$Label3.text                     = "Pre-Construction Project Folder."
 $Label3.AutoSize                 = $true
 $Label3.width                    = 25
 $Label3.height                   = 10
@@ -163,7 +144,7 @@ $StatusBox.Font                  = 'Microsoft Sans Serif,10'
 $StatusBox.MultiLine = $True 
 
 
-$ToolTip1.SetToolTip($PWSID,'Enter PWS ID (e.g. EST19XXX)')
+$ToolTip1.SetToolTip($PWSID,'Enter PWS ID (e.g. T19XXX)')
 $ToolTip2.SetToolTip($PWSName,'Enter the name of the contract here (do not include the PWS ID)')
 $WinForm.controls.AddRange(@($PWSID,$PWSIDText,$PWSNameText,$CreateButton,$PWSName,$Label2,$Label4,$Label1,$Label3,$ADGroup,$Label5,$Picturebox))
 
@@ -201,8 +182,9 @@ $SGSYSTEM = "SYSTEM"
 $SGDA = "SEDDONAD\Domain Admins"
 
 #LocationVariables
-$CDest = "\\seddonad.com\ProjectWorkspace\Engineering Services Tenders\$PWSID $PWSName"
-$CSource = "\\seddonad.com\ProjectWorkspace\Engineering Services Tenders\EngineeringServicesTemplate"
+$CDest = "\\seddonad.com\ProjectWorkspace\Pre-Construction Projects\$PWSID $PWSName"
+$CSource = "\\seddonad.com\ProjectWorkspace\Pre-Construction Projects\PreConTemplate"
+
 
 #New Folder
 robocopy "$CSource" "$CDest" /COPY:DAS /E /NFL /NDL /NJH /NJS
@@ -216,7 +198,7 @@ $strIcaclsPrms2 = ":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d)" #Files Only Permissi
 $strICaclsPrms3 = ":(OI)(CI)(F)" #Default Groups after Inheritence is disabled
 $strIcaclsPrms4 = ":(OI)(CI)(IO)(M,DC)" #Create folders but not delete root folder pt1
 $strIcaclsPrms5 = ":(RX,WD,AD)" #Create folders but not delete root folder pt2
-$strIcaclsDefaultPath = "\\seddonad.com\projectworkspace\Engineering Services Tenders\$PWSID $PWSName"
+$strIcaclsDefaultPath = "\\seddonad.com\projectworkspace\Pre-Construction Projects\$PWSID $PWSName"
 
 
 #CreateActiveDirectoryGroup
@@ -224,7 +206,7 @@ $strIcaclsDefaultPath = "\\seddonad.com\projectworkspace\Engineering Services Te
 if ($ADGroup.Checked -eq $true)
 {
 
-New-ADGroup -Name "PWS - $PWSID" -GroupCategory Security -GroupScope Global -Path 'OU=PWS - Engineering Services Tenders,OU=Project WorkSpace,OU=Security Groups,DC=seddonad,DC=com'
+New-ADGroup -Name "PWS - $PWSID" -GroupCategory Security -GroupScope Global -Path 'OU=PWS - Pre Construction,OU=Project WorkSpace,OU=Security Groups,DC=seddonad,DC=com'
 }
 
 
@@ -240,150 +222,25 @@ Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.3 Arch Dw
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.4 Eng Dwgs" $strGrant "$SG$strIcaclsPrms2" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.5 M&E Dwgs" $strGrant "$SG$strIcaclsPrms2" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.6 Other Dwgs" $strGrant "$SG$strIcaclsPrms2" /t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender" $strGrant "$SG$strIcaclsPrms1" /t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender" $strGrant "$SG$strIcaclsPrms1" /t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender" $strGrant "$SG$strIcaclsPrms1" /t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender" $strGrant "$SG$strIcaclsPrms1" /t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender" $strGrant "$SG$strIcaclsPrms1" /t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender" $strGrant "$SG$strIcaclsPrms1" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.7 TA" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.8 Client Info" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.8 Client Info" $strGrant "$SG$strIcaclsPrms4"') 
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.8 Client Info" $strGrant "$SG$strIcaclsPrms5"') 
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.9 Superceeded" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\2. BoQ" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Supply Chain" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Correspondence" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\5. Site Visit" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\6. QA Documents" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\7. Bid Submission" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\8. Bid Man Area" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\9. Est Area" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\10. Planning" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\11. Design" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\12. Final Submission" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\13. Post Tender" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\14. Handover" $strGrant "$SG$strIcaclsPrms2" /t')
 
-
-icacls "\\seddonad.com\projectworkspace\Pre-Construction Projects\%_ContractName%\1. Tender\1.1 Con Docs" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-icacls "\\seddonad.com\projectworkspace\Pre-Construction Projects\%_ContractName%\1. Tender\1.2 Reports" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-icacls "\\seddonad.com\projectworkspace\Pre-Construction Projects\%_ContractName%\1. Tender\1.3 Arch Dwgs" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-icacls "\\seddonad.com\projectworkspace\Pre-Construction Projects\%_ContractName%\1. Tender\1.4 Eng Dwgs" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-icacls "\\seddonad.com\projectworkspace\Pre-Construction Projects\%_ContractName%\1. Tender\1.5 M&E Dwgs" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-icacls "\\seddonad.com\projectworkspace\Pre-Construction Projects\%_ContractName%\1. Tender\1.6 Other Dwgs" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-icacls "\\seddonad.com\projectworkspace\Pre-Construction Projects\%_ContractName%\1. Tender\1.7 TA" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-icacls "\\seddonad.com\projectworkspace\Pre-Construction Projects\%_ContractName%\1. Tender\1.8 Client Info" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-icacls "\\seddonad.com\projectworkspace\Pre-Construction Projects\%_ContractName%\1. Tender\1.8 Client Info" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(CI)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-icacls "\\seddonad.com\projectworkspace\Pre-Construction Projects\%_ContractName%\1. Tender\1.9 Superceeded" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\2. Mechanical Cost" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\2. Mechanical Cost" $strGrant "$SG$strIcaclsPrms4"')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\2. Mechanical Cost" $strGrant "$SG$strIcaclsPrms5"')
-
-
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\3. Electrical Cost" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\3. Electrical Cost" $strGrant "$SG$strIcaclsPrms4"')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\3. Electrical Cost" $strGrant "$SG$strIcaclsPrms5"') 
-
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\2. Tender Launch" $strGrant "$SG$strIcaclsPrms1" /t')
-
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender" $strGrant "$SG$strIcaclsPrms1" /t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\0. File Set Up" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\1. ITT" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\2. Drawings" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\2. Drawings" $strGrant "$SG$strIcaclsPrms4"') 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\2. Drawings" $strGrant "$SG$strIcaclsPrms5"') 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\3. Specification" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\4. Employers Requirements" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\5. Quotations" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\5. Quotations" $strGrant "$SG$strIcaclsPrms4"') 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\5. Quotations" $strGrant "$SG$strIcaclsPrms5"') 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\6. Emails" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\7. Take Off Sheets" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\8. Tender" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\8. Tender" $strGrant "$SG$strIcaclsPrms4"') 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\8. Tender" $strGrant "$SG$strIcaclsPrms5"') 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\9. Suppliers" $strGrant "$SG$strIcaclsPrms2"/t')
-
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender" $strGrant "$SG$strIcaclsPrms1" /t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\0. Folder Set Up" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\1. ITT" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\2. Drawings" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\2. Drawings" $strGrant "$SG$strIcaclsPrms4"') 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\2. Drawings" $strGrant "$SG$strIcaclsPrms5"') 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\3. Specification" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\4. Employers Requirements" $strGrant "$SG$strIcaclsPrms2"/t')
-
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations" $strGrant "$SG$strIcaclsPrms1" /t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations\Accessories" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations\Cables" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations\Containment" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations\Data" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations\Distribution" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations\Door Access" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations\External Lighting" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations\Fire Aalrm" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations\Generator" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations\Lightign Controls" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations\Lighting" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations\Lightning Protection" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations\Nurse Call" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations\Security" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations\Sub Mains" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations\Television" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations\UPS" $strGrant "$SG$strIcaclsPrms2"/t')
-
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\6. Emails" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\7. Take Off Sheets" $strGrant "$SG$strIcaclsPrms2"/t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\8. Tender" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\8. Tender" $strGrant "$SG$strIcaclsPrms4"') 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\8. Tender" $strGrant "$SG$strIcaclsPrms5"') 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\9. Suppliers" $strGrant "$SG$strIcaclsPrms2"/t')
-
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\5. Tender Return Letter" $strGrant "$SG$strIcaclsPrms1" /t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\6. Hand Over" $strGrant "$SG$strIcaclsPrms1" /t')
-
-
-
-rem ##Set Permissions 1.Client Tender##
-icacls "\\seddonad.com\projectworkspace\Pre-Construction Projects\%_ContractName%\1. Tender" /grant:r "seddonad\PWS - %_securitygroup%":(CI)(r,x,rd,ra,rea,wd,wa,wea) /t
-
-
-rem ##Set Permissions 2.BOQ##
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\2. BoQ" /grant:r "seddonad\PWS - %_securitygroup%":(CI)(r,x,rd,ra,rea,wd,wa,wea) /t
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\2. BoQ" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-
-rem ##Set Permissions 3. Supply Chain
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\3. Supply Chain" /grant:r "seddonad\PWS - %_securitygroup%":(CI)(r,x,rd,ra,rea,wd,wa,wea) /t
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\3. Supply Chain" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-
-rem ##Set Permissions 4. Correspondence
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\4. Correspondence" /grant:r "seddonad\PWS - %_securitygroup%":(CI)(r,x,rd,ra,rea,wd,wa,wea) /t
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\4. Correspondence" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-
-rem ##Set Permissions 5. Site Visit
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\5. Site Visit" /grant:r "seddonad\PWS - %_securitygroup%":(CI)(r,x,rd,ra,rea,wd,wa,wea) /t
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\5. Site Visit" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-
-rem ##Set Permissions 6. QA Documents##
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\6. QA Documents" /grant:r "seddonad\PWS - %_securitygroup%":(CI)(r,x,rd,ra,rea,wd,wa,wea) /t
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\6. QA Documents" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-
-rem ##Set Permissions 7. Bid Submission##
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\7. Bid Submission" /grant:r "seddonad\PWS - %_securitygroup%":(CI)(r,x,rd,ra,rea,wd,wa,wea) /t
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\7. Bid Submission" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-
-rem ##Set Permissions 8. Bid Management##
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\8. Bid Man Area" /grant:r "seddonad\PWS - %_securitygroup%":(CI)(r,x,rd,ra,rea,wd,wa,wea) /t
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\8. Bid Man Area" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-
-rem ##Set Permissions 9. Estimating##
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\9. Est Area" /grant:r "seddonad\PWS - %_securitygroup%":(CI)(r,x,rd,ra,rea,wd,wa,wea) /t
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\9. Est Area" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-
-rem ##Set Permissions 10. Construction and Planning##
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\10. Planning" /grant:r "seddonad\PWS - %_securitygroup%":(CI)(r,x,rd,ra,rea,wd,wa,wea) /t
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\10. Planning" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-
-rem ##Set Permissions 11. Design##
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\11. Design" /grant:r "seddonad\PWS - %_securitygroup%":(CI)(r,x,rd,ra,rea,wd,wa,wea) /t
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\11. Design" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-
-rem ##Set Permissions 12. Final Submission##
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\12. Final Submission" /grant:r "seddonad\PWS - %_securitygroup%":(CI)(r,x,rd,ra,rea,wd,wa,wea) /t
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\12. Final Submission" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-
-rem ##Set Permissions 12. Final Submission##
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\13. Post Tender" /grant:r "seddonad\PWS - %_securitygroup%":(CI)(r,x,rd,ra,rea,wd,wa,wea) /t
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\13. Post Tender" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-
-rem ##Set Permissions 12. Final Submission##
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\14. Handover" /grant:r "seddonad\PWS - %_securitygroup%":(CI)(r,x,rd,ra,rea,wd,wa,wea) /t
-icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Pre-Construction Projects\%_ContractName%\14. Handover" /grant:r "seddonad\PWS - %_securitygroup%":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-pause
 
 [System.Windows.Forms.MessageBox]::Show('Project Workspace Folder Successfully Created!', 'Success!')
 
