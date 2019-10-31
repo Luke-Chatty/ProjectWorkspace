@@ -84,7 +84,7 @@ $PWSName.Font                    = 'Segoe UI,10'
 
 $PWSIDText                       = New-Object system.Windows.Forms.TextBox
 $PWSIDText.multiline             = $false
-$PWSIDText.text                  = "T19XXX"
+$PWSIDText.text                  = "T21000"
 $PWSIDText.width                 = 152
 $PWSIDText.height                = 20
 $PWSIDText.Anchor                = 'top,right'
@@ -215,7 +215,7 @@ Invoke-Expression -Command ('icacls $strIcaclsDefaultPath $strGrant "$SG$strIcac
 
 
 #File Permissions 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender" $strGrant "$SG$strIcaclsPrms1" /t')
+#Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender" $strGrant "$SG$strIcaclsPrms2" /t')
 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.1 Con Doc" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.1 Con Doc" $strGrant "$SG$strIcaclsPrms2" /t')
@@ -226,7 +226,7 @@ Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.2 Reports
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.3 Arch Dwgs" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.3 Arch Dwgs" $strGrant "$SG$strIcaclsPrms2" /t')
 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.4 Eng Dwgs" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.4 Eng Dwgs" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.4 Eng Dwgs" $strGrant "$SG$strIcaclsPrms2" /t')
 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.5 M&E Dwgs" $strGrant "$SG$strIcaclsPrms1" /t')
@@ -245,7 +245,6 @@ Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.8 Client 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.9 Superceeded" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.9 Superceeded" $strGrant "$SG$strIcaclsPrms2" /t')
 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\2. BoQ" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\2. BoQ" $strGrant "$SG$strIcaclsPrms2" /t')
 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Supply Chain" $strGrant "$SG$strIcaclsPrms1" /t')

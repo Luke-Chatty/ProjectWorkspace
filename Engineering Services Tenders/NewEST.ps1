@@ -197,7 +197,10 @@ robocopy "$CSource" "$CDest" /COPY:DAS /E /NFL /NDL /NJH /NJS
 $strGrant = "/grant"
 $strInh = "/inheritance:r"
 $strDeny = "/deny"
-$strIcaclsPrms1 = ":(CI)(R,X,RD,RA,REA,WA,WEA)" #Top Level Folder Permisions
+$strRead = "/grant:r"
+$strReadVariable = ":r"
+
+$strIcaclsPrms1 = ":(CI)(R,X,RD,RA,REA,WD,WA,WEA)" #Top Level Folder Permisions
 $strIcaclsPrms2 = ":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d)" #Files Only Permission
 $strICaclsPrms3 = ":(OI)(CI)(F)" #Default Groups after Inheritence is disabled
 $strIcaclsPrms4 = ":(OI)(CI)(IO)(M,DC)" #Create folders but not delete root folder pt1
@@ -215,7 +218,13 @@ New-ADGroup -Name "PWS - $PWSID" -GroupCategory Security -GroupScope Global -Pat
 
 
 #Root Folder Level
-Invoke-Expression -Command ('icacls $strIcaclsDefaultPath $strGrant "$SG$strIcaclsPrms1"')
+#Testing
+#icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Engineering Services Tenders\Test Contract Name 3" /grant:r "seddonad\PWS - Test":r
+#icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Engineering Services Tenders\Test Contract Name 3\2. Tender Launch" /grant:r "seddonad\PWS - Test":(CI)(r,x,rd,ra,rea,wd,wa,wea) /t
+#icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Engineering Services Tenders\Test Contract Name 3\2. Tender Launch" /grant:r "seddonad\PWS - Test":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
+
+
+Invoke-Expression -Command ('icacls $strIcaclsDefaultPath $strRead "$SG$strReadVariable"')
 
 
 #File Permissions 
@@ -233,7 +242,8 @@ Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudicatio
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\3. Electrical Cost" $strGrant "$SG$strIcaclsPrms4"')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender Adjudication\3. Electrical Cost" $strGrant "$SG$strIcaclsPrms5"') 
 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\2. Tender Launch" $strGrant "$SG$strIcaclsPrms1" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\2. Tender Launch" $strRead "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\2. Tender Launch" $strRead "$SG$strIcaclsPrms1" /t')
 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\3. Mechanical Tender\0. File Set Up" $strGrant "$SG$strIcaclsPrms2"/t')
@@ -289,7 +299,10 @@ Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\9. Suppliers" $strGrant "$SG$strIcaclsPrms2"/t')
 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\5. Tender Return Letter" $strGrant "$SG$strIcaclsPrms1" /t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\6. Hand Over" $strGrant "$SG$strIcaclsPrms1" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\5. Tender Return Letter" $strRead "$SG$strIcaclsPrms2" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\6. Hand Over" $strRead "$SG$strIcaclsPrms1" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\6. Hand Over" $strGrant "$SG$strIcaclsPrms2" /t')
 
 [System.Windows.Forms.MessageBox]::Show('Project Workspace Folder Successfully Created!', 'Success!')
 
