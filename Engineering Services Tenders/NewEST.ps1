@@ -4,14 +4,11 @@
 .DESCRIPTION
    This script will capture user input, create an AD group in the correct OU, take a copy of the folder structure template and apply correct permissions of newly created AD group using iCACLs.
 .NOTES
-  Version:        1.2
+  Version:        1.3
   Author:         Luke Chatburn
-  Creation Date:  29/10/19
+  Creation Date:  04/11/19
   Purpose/Change: 
-Modified all anchors to allow for different resolutions. Size is no-longer fixed and if the default window is warped user can resize accordingly.
-Fixed clipping issue with Construction project label.
-Fixed permission issue where users could save outside folder structure despite not being able to see what they save.
-Set default state of checkbox to checked, 90% of the time an AD group will be created. (previously unchecked)
+Fixed issue with AD group creation
 
 #>
 
@@ -216,14 +213,6 @@ if ($ADGroup.Checked -eq $true)
 New-ADGroup -Name "PWS - $PWSID" -GroupCategory Security -GroupScope Global -Path 'OU=PWS - Engineering Services Tenders,OU=Project WorkSpace,OU=Security Groups,DC=seddonad,DC=com'
 }
 
-
-#Root Folder Level
-#Testing
-#icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Engineering Services Tenders\Test Contract Name 3" /grant:r "seddonad\PWS - Test":r
-#icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Engineering Services Tenders\Test Contract Name 3\2. Tender Launch" /grant:r "seddonad\PWS - Test":(CI)(r,x,rd,ra,rea,wd,wa,wea) /t
-#icacls "\\SEDDONAD.COM\PROJECTWORKSPACE\Engineering Services Tenders\Test Contract Name 3\2. Tender Launch" /grant:r "seddonad\PWS - Test":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d) /t
-
-
 Invoke-Expression -Command ('icacls $strIcaclsDefaultPath $strRead "$SG$strReadVariable"')
 
 
@@ -333,7 +322,7 @@ Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\6. Handover" $strInh 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\6. Handover" $strGrant "$SG$strIcaclsPrms4"') 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\6. Handover" $strGrant "$SG$strIcaclsPrms5"') 
 
-[System.Windows.Forms.MessageBox]::Show('Project Workspace Folder Successfully Created!', 'Success!')
+[System.Windows.Forms.MessageBox]::Show('Project Workspace Script Completed!', 'Success!')
 
 })
 
