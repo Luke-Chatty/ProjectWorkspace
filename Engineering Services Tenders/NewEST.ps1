@@ -202,7 +202,9 @@ $strIcaclsPrms2 = ":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d)" #Files Only Permissi
 $strICaclsPrms3 = ":(OI)(CI)(F)" #Default Groups after Inheritence is disabled
 $strIcaclsPrms4 = ":(OI)(CI)(IO)(M,DC)" #Create folders but not delete root folder pt1
 $strIcaclsPrms5 = ":(RX,WD,AD)" #Create folders but not delete root folder pt2
-$strIcaclsDefaultPath = "\\seddonad.com\projectworkspace\Engineering Services Tenders\$PWSID $PWSName"
+$strIcaclsDefaultPath = "\\seddonad.com\ProjectWorkspace\Engineering Services Tenders\$PWSID $PWSName"
+
+$RidiculousNewVariable = "$SG$strReadVariable"
 
 
 #CreateActiveDirectoryGroup
@@ -210,10 +212,9 @@ $strIcaclsDefaultPath = "\\seddonad.com\projectworkspace\Engineering Services Te
 if ($ADGroup.Checked -eq $true)
 {
 
-New-ADGroup -Name "PWS - $PWSID" -GroupCategory Security -GroupScope Global -Path 'OU=PWS - Engineering Services Tenders,OU=Project WorkSpace,OU=Security Groups,DC=seddonad,DC=com'
+New-ADGroup -Name "PWS - $PWSID" -GroupCategory Security -GroupScope Universal -Path 'OU=PWS - Engineering Services Tenders,OU=Project WorkSpace,OU=Security Groups,DC=seddonad,DC=com'
 }
 
-Start-Sleep -s 1.5
 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath" $strRead "$SG$strReadVariable"')
 
