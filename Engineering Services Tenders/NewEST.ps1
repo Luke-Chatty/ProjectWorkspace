@@ -213,7 +213,9 @@ if ($ADGroup.Checked -eq $true)
 New-ADGroup -Name "PWS - $PWSID" -GroupCategory Security -GroupScope Global -Path 'OU=PWS - Engineering Services Tenders,OU=Project WorkSpace,OU=Security Groups,DC=seddonad,DC=com'
 }
 
-Invoke-Expression -Command ('icacls $strIcaclsDefaultPath $strRead "$SG$strReadVariable"')
+Start-Sleep -s 1.5
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath" $strRead "$SG$strReadVariable"')
 
 
 #File Permissions 
@@ -322,8 +324,8 @@ Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\6. Handover" $strInh 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\6. Handover" $strGrant "$SG$strIcaclsPrms4"') 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\6. Handover" $strGrant "$SG$strIcaclsPrms5"') 
 
-[System.Windows.Forms.MessageBox]::Show('Project Workspace Script Completed!', 'Success!')
 
+[Microsoft.VisualBasic.Interaction]::MsgBox('Project Workspace Script Completed!', 'MsgBoxSetForeground,Information', 'Completed!')
 })
 
 
