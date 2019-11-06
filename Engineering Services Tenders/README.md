@@ -1,6 +1,6 @@
 [![version][version-badge]][CHANGELOG]
 
-# Construction Projects - Project Workspace
+# Engineering Services Tenders - Project Workspace
 
 Project Workspace Script for Construction Projects
 
