@@ -204,7 +204,6 @@ $strIcaclsPrms4 = ":(OI)(CI)(IO)(M,DC)" #Create folders but not delete root fold
 $strIcaclsPrms5 = ":(RX,WD,AD)" #Create folders but not delete root folder pt2
 $strIcaclsDefaultPath = "\\seddonad.com\ProjectWorkspace\Engineering Services Tenders\$PWSID $PWSName"
 
-$RidiculousNewVariable = "$SG$strReadVariable"
 
 
 #CreateActiveDirectoryGroup
@@ -285,9 +284,11 @@ Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\3. Specification" $strGrant "$SG$strIcaclsPrms5"') 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\4. Employers Requirements" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\4. Employers Requirements" $strGrant "$SG$strIcaclsPrms4"') 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\4. Employers Requirements" $strGrant "$SG$strIcaclsPrms5"') 
-
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations" $strGrant "$SG$strIcaclsPrms1" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\4. Employers Requirements" $strGrant "$SG$strIcaclsPrms5"')
+ 
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations" $strGrant "$SG$strIcaclsPrms4"') 
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations" $strGrant "$SG$strIcaclsPrms5"') 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations\Accessories" $strGrant "$SG$strIcaclsPrms2"/t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations\Cables" $strGrant "$SG$strIcaclsPrms2"/t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\5. Quotations\Containment" $strGrant "$SG$strIcaclsPrms2"/t')
@@ -315,7 +316,9 @@ Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\8. Tender" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\8. Tender" $strGrant "$SG$strIcaclsPrms4"') 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\8. Tender" $strGrant "$SG$strIcaclsPrms5"') 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\9. Suppliers" $strGrant "$SG$strIcaclsPrms2"/t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\9. Suppliers" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\9. Suppliers" $strGrant "$SG$strIcaclsPrms4"') 
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\4. Electrical Tender\9. Suppliers" $strGrant "$SG$strIcaclsPrms5"') 
 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\5. Tender Return Letter" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\5. Tender Return Letter" $strGrant "$SG$strIcaclsPrms4"') 
@@ -325,7 +328,7 @@ Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\6. Handover" $strInh 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\6. Handover" $strGrant "$SG$strIcaclsPrms4"') 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\6. Handover" $strGrant "$SG$strIcaclsPrms5"') 
 
-
+[System.Reflection.Assembly]::LoadWithPartialName("Microsoft.VisualBasic")
 [Microsoft.VisualBasic.Interaction]::MsgBox('Project Workspace Script Completed!', 'MsgBoxSetForeground,Information', 'Completed!')
 })
 
