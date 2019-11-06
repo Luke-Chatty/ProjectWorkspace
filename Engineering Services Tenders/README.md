@@ -2,7 +2,7 @@
 
 # Engineering Services Tenders - Project Workspace
 
-Project Workspace Script for Construction Projects
+Project Workspace Script for Engineer Services Tenders
 
 Updates and links to download will be saved here.
 
