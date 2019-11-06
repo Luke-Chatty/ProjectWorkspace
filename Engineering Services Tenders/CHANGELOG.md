@@ -3,6 +3,14 @@
 All notable changes and history will be saved here. 
 
 ## Version [1.5] - 06/11/19
+### Added
+- Permissions for Folder 4.5 Quotations to allow for creation of folders
+
+### Changed
+- Change method used to prompt the script has completed to allow pop-up message box to be always-on-top
+
+### Fixed
+- Fixed creation AD account from failing with account mapping in iCACLS
 
 ## Version [1.4] - 30/09/19
 ### Added
