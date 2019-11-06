@@ -364,14 +364,9 @@ Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\9.0 Engineering\9.17 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\9.0 Engineering\9.18 Workings Area" $strGrant "$SG$strIcaclsPrms2" /t')
 
 
-
-
-#File Permissions  
-
-[System.Windows.Forms.MessageBox]::Show('Project Workspace Folder Successfully Created!', 'Success!')
-
+[System.Reflection.Assembly]::LoadWithPartialName("Microsoft.VisualBasic")
+[Microsoft.VisualBasic.Interaction]::MsgBox('Project Workspace Script Completed!', 'MsgBoxSetForeground,Information', 'Completed!')
 })
-
 
 
 [void]$WinForm.ShowDialog()
