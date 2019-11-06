@@ -13,25 +13,24 @@ Updates and links to download will be saved here.
 ## Latest [Changelog]
 All notable changes and history will be saved here. 
 
-## Version [1.4] - 30/09/19
+## Version [1.5] - 30/09/19
 ### Added
-- Modified all anchors to allow for different resolutions. Size is no-longer fixed and if the default window is warped user can resize accordingly.
-- Set default state of checkbox to checked, 90% of the time an AD group will be created. (previously unchecked)
+- Permissions for Folder 4.5 Quotations to allow for creation of folders
 
 ### Changed
-- Fixed clipping issue with Construction project label.
-- Fixed permission issue where users could save outside folder structure despite not being able to see what they save.
+- Change method used to prompt the script has completed to allow pop-up message box to be always-on-top
 
-### Removed
+### Fixed
+Fixed creation AD account from failing with account mapping in iCACLS
 
 
-[1.4]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.3.0...v1.0.0
+[1.5]:
 
 
 [CHANGELOG]: ./CHANGELOG.md
 [LICENSE]: ./LICENSE
 [ruby-version]: .ruby-version
 [source]: source/
-[version-badge]: https://img.shields.io/badge/version-1.4-blue.svg
+[version-badge]: https://img.shields.io/badge/version-1.5-blue.svg
 [Download Powershell]: https://github.com/LukeSeddon/ProjectWorkspace/blob/master/Construction%20Projects/PWS-Construction.ps1
 [Download Executable (.exe)]: https://github.com/LukeSeddon/ProjectWorkspace/blob/master/Construction%20Projects/PWS-Construction.exe
