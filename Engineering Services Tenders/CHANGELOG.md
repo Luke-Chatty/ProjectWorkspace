@@ -2,6 +2,8 @@
 # Changelog
 All notable changes and history will be saved here. 
 
+## Version [1.5] - 06/11/19
+
 ## Version [1.4] - 30/09/19
 ### Added
 - Modified all anchors to allow for different resolutions. Size is no-longer fixed and if the default window is warped user can resize accordingly.
@@ -31,6 +33,5 @@ Replaced xcopy with robocopy.
 Created and configured GUI to ease process
 
 
-[1.4]:
 
 
