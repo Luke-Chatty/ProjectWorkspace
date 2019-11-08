@@ -183,7 +183,7 @@ $SGDA = "SEDDONAD\Domain Admins"
 
 #LocationVariables
 $CDest = "\\seddonad.com\ProjectWorkspace\Pre-Construction Projects\$PWSID $PWSName"
-$CSource = "\\seddonad.com\ProjectWorkspace\Pre-Construction Projects\PreConTemplate"
+$CSource = "\\seddonad.com\ProjectWorkspace\Pre-Construction Projects\PreConTemplateDEV"
 
 
 #New Folder
@@ -192,13 +192,15 @@ robocopy "$CSource" "$CDest" /COPY:DAS /E /NFL /NDL /NJH /NJS
 #iCACLS Variables
 $strGrant = "/grant"
 $strInh = "/inheritance:r"
-$strDeny = "/deny"
-$strIcaclsPrms1 = ":(CI)(R,X,RD,RA,REA,WA,WEA)" #Top Level Folder Permisions
+$strRead = "/grant:r"
+$strIcaclsDefaultPath = "\\seddonad.com\ProjectWorkspace\Pre-Construction Projects\$PWSID $PWSName"
+$strIcaclsPrmsTopLvl = ":r"
+$strIcaclsPrms1 = ":(CI)(r,x,rd,ra,rea,wd,wa,wea)" #Top Level Folder Permisions
 $strIcaclsPrms2 = ":(OI)(IO)(r,x,rd,ra,rea,wd,wa,wea,ad,d)" #Files Only Permission
 $strICaclsPrms3 = ":(OI)(CI)(F)" #Default Groups after Inheritence is disabled
 $strIcaclsPrms4 = ":(OI)(CI)(IO)(M,DC)" #Create folders but not delete root folder pt1
 $strIcaclsPrms5 = ":(RX,WD,AD)" #Create folders but not delete root folder pt2
-$strIcaclsDefaultPath = "\\seddonad.com\projectworkspace\Pre-Construction Projects\$PWSID $PWSName"
+
 
 
 #CreateActiveDirectoryGroup
@@ -211,38 +213,23 @@ New-ADGroup -Name "PWS - $PWSID" -GroupCategory Security -GroupScope Global -Pat
 
 
 #Root Folder Level
-Invoke-Expression -Command ('icacls $strIcaclsDefaultPath $strGrant "$SG$strIcaclsPrms1"')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath" $strRead "$SG$strIcaclsPrmsTopLvl"')
 
 
 #File Permissions 
-#Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender" $strGrant "$SG$strIcaclsPrms1" /t')
 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.1 Con Doc" $strGrant "$SG$strIcaclsPrms1" /t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.1 Con Doc" $strGrant "$SG$strIcaclsPrms2" /t')
-
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.2 Reports" $strGrant "$SG$strIcaclsPrms1" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.1 Con Docs" $strGrant "$SG$strIcaclsPrms2" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.2 Reports" $strGrant "$SG$strIcaclsPrms2" /t')
-
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.3 Arch Dwgs" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.3 Arch Dwgs" $strGrant "$SG$strIcaclsPrms2" /t')
-
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.4 Eng Dwgs" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.4 Eng Dwgs" $strGrant "$SG$strIcaclsPrms2" /t')
-
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.5 M&E Dwgs" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.5 M&E Dwgs" $strGrant "$SG$strIcaclsPrms2" /t')
-
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.6 Other Dwgs" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.6 Other Dwgs" $strGrant "$SG$strIcaclsPrms2" /t')
-
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.7 TA" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.7 TA" $strGrant "$SG$strIcaclsPrms2" /t')
 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.8 Client Info" $strInh $strGrant "$SGIT$strICaclsPrms3" $strGrant "$SGSYSTEM$strICaclsPrms3" $strGrant "$SGDA$strICaclsPrms3"') #Grant System, Domain Admins and PWS Admins
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.8 Client Info" $strGrant "$SG$strIcaclsPrms4"') 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.8 Client Info" $strGrant "$SG$strIcaclsPrms5"') 
-
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.9 Superceeded" $strGrant "$SG$strIcaclsPrms1" /t')
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\1. Tender\1.9 Superceeded" $strGrant "$SG$strIcaclsPrms2" /t')
 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\2. BoQ" $strGrant "$SG$strIcaclsPrms2" /t')
@@ -272,20 +259,32 @@ Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\10. Planning" $strGra
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\10. Planning" $strGrant "$SG$strIcaclsPrms2" /t')
 
 Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\11. Design" $strGrant "$SG$strIcaclsPrms1" /t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\11. Design" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\11. Design\11.1 Architects" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\11. Design\11.2 Engineers" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\11. Design\11.3 Landscape" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\11. Design\11.4 Highway" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\11. Design\11.5 Drainage" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\11. Design\11.6 Mech & Elec" $strGrant "$SG$strIcaclsPrms2" /t')
 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\12. Final Submission" $strGrant "$SG$strIcaclsPrms1" /t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\12. Final Submission" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\12. 3D Model Information" $strGrant "$SG$strIcaclsPrms1" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\12. 3D Model Information\12.1 WIP Design Models" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\12. 3D Model Information\12.2 Shared Models" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\12. 3D Model Information\12.3 Federated Models (NWF, NWD)" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\12. 3D Model Information\12.4 Model Comments, Clash Reports" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\12. 3D Model Information\12.5 Model Renders" $strGrant "$SG$strIcaclsPrms2" /t')
 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\13. Post Tender" $strGrant "$SG$strIcaclsPrms1" /t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\13. Post Tender" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\13. Final Submission" $strGrant "$SG$strIcaclsPrms1" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\13. Final Submission" $strGrant "$SG$strIcaclsPrms2" /t')
 
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\14. Handover" $strGrant "$SG$strIcaclsPrms1" /t')
-Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\14. Handover" $strGrant "$SG$strIcaclsPrms2" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\14. Post Tender" $strGrant "$SG$strIcaclsPrms1" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\14. Post Tender" $strGrant "$SG$strIcaclsPrms2" /t')
+
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\15. Handover" $strGrant "$SG$strIcaclsPrms1" /t')
+Invoke-Expression -Command ('icacls "$strIcaclsDefaultPath\15. Handover" $strGrant "$SG$strIcaclsPrms2" /t')
 
 
-[System.Windows.Forms.MessageBox]::Show('Project Workspace Folder Successfully Created!', 'Success!')
-
+[System.Reflection.Assembly]::LoadWithPartialName("Microsoft.VisualBasic")
+[Microsoft.VisualBasic.Interaction]::MsgBox('Project Workspace Script Completed!', 'MsgBoxSetForeground,Information', 'Completed!')
 })
 
 
