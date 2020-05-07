@@ -16,7 +16,7 @@ Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 $PWSForm                         = New-Object system.Windows.Forms.Form
-$PWSForm.ClientSize              = '410,350'
+$PWSForm.ClientSize              = '410,450'
 $PWSForm.text                    = "PWS - New Construction Project"
 $PWSForm.TopMost                 = $false
 $PWSForm.BackColor               = "#f7fcff"
@@ -65,17 +65,17 @@ $LabelIntro2.ForeColor                = "#022943"
 
 $ComboProjectType                = New-Object system.Windows.Forms.ComboBox
 $ComboProjectType.text           = "Select.."
-$ComboProjectType.width          = 170
+$ComboProjectType.width          = 190
 $ComboProjectType.height         = 25
 $ComboProjectType.Anchor         = 'top,right'
-@('Business Services','Construction Project','Development Project','Pre-Qualification','Pre-Construction') | ForEach-Object {[void] $ComboProjectType.Items.Add($_)}
-$ComboProjectType.location       = New-Object System.Drawing.Point(190,130)
+@('Business Services','Construction Project','Development Project','Engineering Services Tender','Pre-Qualification','Pre-Construction') | ForEach-Object {[void] $ComboProjectType.Items.Add($_)}
+$ComboProjectType.location       = New-Object System.Drawing.Point(170,130)
 $ComboProjectType.Font           = 'Segoe UI,10'
 
 $LabelProjectType                = New-Object system.Windows.Forms.Label
 $LabelProjectType.text           = "Project Type:"
 $LabelProjectType.AutoSize       = $true
-$LabelProjectType.width          = 170
+$LabelProjectType.width          = 190
 $LabelProjectType.height         = 25
 $LabelProjectType.Anchor         = 'top,right'
 $LabelProjectType.location       = New-Object System.Drawing.Point(50,132)
@@ -84,7 +84,7 @@ $LabelProjectType.Font           = 'Segoe UI,10'
 $LabelProjectNumber              = New-Object system.Windows.Forms.Label
 $LabelProjectNumber.text         = "Project Number:"
 $LabelProjectNumber.AutoSize     = $true
-$LabelProjectNumber.width        = 170
+$LabelProjectNumber.width        = 190
 $LabelProjectNumber.height       = 25
 $LabelProjectNumber.Anchor       = 'top,right'
 $LabelProjectNumber.location     = New-Object System.Drawing.Point(50,162)
@@ -92,16 +92,16 @@ $LabelProjectNumber.Font         = 'Segoe UI,10'
 
 $TextBoxProjectNumber            = New-Object system.Windows.Forms.TextBox
 $TextBoxProjectNumber.multiline  = $false
-$TextBoxProjectNumber.width      = 170
+$TextBoxProjectNumber.width      = 190
 $TextBoxProjectNumber.height     = 25
 $TextBoxProjectNumber.Anchor     = 'top,right'
-$TextBoxProjectNumber.location   = New-Object System.Drawing.Point(190,160)
+$TextBoxProjectNumber.location   = New-Object System.Drawing.Point(170,160)
 $TextBoxProjectNumber.Font       = 'Microsoft Sans Serif,10'
 
 $LabelProjectName                = New-Object system.Windows.Forms.Label
 $LabelProjectName.text           = "Project Name: "
 $LabelProjectName.AutoSize       = $true
-$LabelProjectName.width          = 170
+$LabelProjectName.width          = 190
 $LabelProjectName.height         = 25
 $LabelProjectName.Anchor         = 'top,right'
 $LabelProjectName.location       = New-Object System.Drawing.Point(50,192)
@@ -109,16 +109,16 @@ $LabelProjectName.Font           = 'Segoe UI,10'
 
 $TextBoxProjectName              = New-Object system.Windows.Forms.TextBox
 $TextBoxProjectName.multiline    = $false
-$TextBoxProjectName.width        = 170
+$TextBoxProjectName.width        = 190
 $TextBoxProjectName.height       = 25
 $TextBoxProjectName.Anchor       = 'top,right'
-$TextBoxProjectName.location     = New-Object System.Drawing.Point(190,190)
+$TextBoxProjectName.location     = New-Object System.Drawing.Point(170,190)
 $TextBoxProjectName.Font         = 'Microsoft Sans Serif,10'
 
 $LabelBusinessName               = New-Object system.Windows.Forms.Label
 $LabelBusinessName.text          = "Business Name: "
 $LabelBusinessName.AutoSize      = $true
-$LabelBusinessName.width         = 170
+$LabelBusinessName.width         = 190
 $LabelBusinessName.height        = 25
 $LabelBusinessName.Anchor        = 'top,right'
 $LabelBusinessName.location      = New-Object System.Drawing.Point(50,222)
@@ -126,49 +126,57 @@ $LabelBusinessName.Font          = 'Segoe UI,10'
 
 $ComboBusinessName               = New-Object system.Windows.Forms.ComboBox
 $ComboBusinessName.text          = "Select.."
-$ComboBusinessName.width         = 170
+$ComboBusinessName.width         = 190
 $ComboBusinessName.height        = 25
 $ComboBusinessName.Anchor        = 'top,right'
-@('Housing','Projects (Construction)','Property Services', 'M&E') | ForEach-Object {[void] $ComboBusinessName.Items.Add($_)}
-$ComboBusinessName.location      = New-Object System.Drawing.Point(190,220)
+@('Housing','Projects','Property Services','Direct Services','Painting','M&E') | ForEach-Object {[void] $ComboBusinessName.Items.Add($_)}
+$ComboBusinessName.location      = New-Object System.Drawing.Point(170,220)
 $ComboBusinessName.Font          = 'Segoe UI,10'
+
+$LabelRegion            = New-Object system.Windows.Forms.Label
+$LabelRegion.text          = "Region: "
+$LabelRegion.AutoSize      = $true
+$LabelRegion.width         = 190
+$LabelRegion.height        = 25
+$LabelRegion.Anchor        = 'top,right'
+$LabelRegion.location      = New-Object System.Drawing.Point(50,252)
+$LabelRegion.Font          = 'Segoe UI,10'
+
+$ComboRegion               = New-Object system.Windows.Forms.ComboBox
+$ComboRegion.text          = "Select.."
+$ComboRegion.width         = 190
+$ComboRegion.height        = 25
+$ComboRegion.Anchor        = 'top,right'
+@('North West','Midlands') | ForEach-Object {[void] $ComboRegion.Items.Add($_)}
+$ComboRegion.location      = New-Object System.Drawing.Point(170,250)
+$ComboRegion.Font          = 'Segoe UI,10'
 
 $CreateButton                    = New-Object system.Windows.Forms.Button
 $CreateButton.text               = "Create PWS Folder"
 $CreateButton.width              = 150
 $CreateButton.height             = 30
 $CreateButton.Anchor             = 'top,left'
-$CreateButton.location           = New-Object System.Drawing.Point(136,256)
+$CreateButton.location           = New-Object System.Drawing.Point(136,296)
 $CreateButton.Font               = 'Segoe UI,10'
 $CreateButton.Enabled            = $false
-
-
-$OutputBox            = New-Object system.Windows.Forms.TextBox
-$OutputBox.multiline    = $false
-$OutputBox.width        = 345
-$OutputBox.height       = 25
-$OutputBox.Anchor       = 'top,right'
-$OutputBox.location     = New-Object System.Drawing.Point(30,302)
-$OutputBox.Font         = 'Segoe UI,10'
-
-$LabelProgressBar                = New-Object system.Windows.Forms.Label
-$LabelProgressBar.text           = "Status:"
-$LabelProgressBar.AutoSize       = $true
-$LabelProgressBar.width          = 340
-$LabelProgressBar.height         = 25
-$LabelProgressBar.location       = New-Object System.Drawing.Point(10,292)
-$LabelProgressBar.Font           = 'Segoe UI,10'
 
 $ProgressBar                     = New-Object system.Windows.Forms.ProgressBar
 $ProgressBar.BackColor           = "#ffffff"
 $ProgressBar.width               = 354
 $ProgressBar.height              = 27
-$ProgressBar.location            = New-Object System.Drawing.Point(27,293)
+$ProgressBar.location            = New-Object System.Drawing.Point(27,333)
+
+$TextBox          = New-Object system.Windows.Forms.TextBox
+$TextBox.text      =  $UserAccount1
+$TextBox.multiline  = $false
+$TextBox.width      = 190
+$TextBox.height     = 25
+$TextBox.Anchor     = 'top,right'
+$TextBox.location   = New-Object System.Drawing.Point(170,420)
+$TextBox.Font       = 'Microsoft Sans Serif,10'
 
 
-
-
-$PWSForm.controls.AddRange(@($Picturebox,$LabelIntro1,$LabelIntro2,$ComboProjectType,$LabelProjectType,$LabelProjectNumber,$TextBoxProjectNumber,$LabelProjectName,$TextBoxProjectName,$LabelBusinessName,$ComboBusinessName,$CreateButton,$ProgressBar))
+$PWSForm.controls.AddRange(@($Picturebox,$LabelIntro1,$LabelIntro2,$ComboProjectType,$LabelProjectType,$LabelProjectNumber,$TextBoxProjectNumber,$LabelProjectName,$TextBoxProjectName,$LabelBusinessName,$ComboBusinessName,$ComboRegion,$ProgressBar,$CreateButton,$LabelRegion,$Textbox))
 
 
 #Silently Import Module
@@ -204,29 +212,28 @@ $CreateButton.Add_Enter({  })
 
 $CreateButton.Add_Click({
 
-#Initialize the Progress Bar
-$progressbar.Maximum = 10;
-$progressbar.Value = 0;
 
-#Lookup
-$LookupContractType = [ordered]@{
-    "Housing" = "Housing Team"
-    "Projects (Construction)" = "Projects Team"
-    "Property Services" = "Property Services Team"
-    "M&E" = "M&E Team"
+#Lookup Contract Type for PWS
+$LookupContractTypeFunction1 = [ordered]@{
+    "Construction Project" = "Con"
+    "Business Services" = "Bus"
+    "Development Project" = "Dev"
+    "Pre-Qualification" = "Pre-Qual"
+    "Pre-Construction" = "Pre-Con"
 }
 
-foreach ($item in $LookupContractType.GetEnumerator()) {
+foreach ($item in $LookupContractTypeFunction1.GetEnumerator()) {
     $ComboProjectType.Items.Add($item.Key)
 }
 
 #... When the user selects something, then...
 if ($ComboProjectType.SelectedIndex -gt -1) {
-    $LookupValue1 = $LookupContractType[$ComboProjectType.SelectedItem]
+    $LookupContractTypeADValue = $LookupContractTypeFunction1[$ComboProjectType.SelectedItem]
     # lookupValue should now equal 'Construction'
 }
 
-$LookupBusinessName = [ordered]@{
+#Lookup Contract Type for Site URL
+$LookupContractTypeFunction2 = [ordered]@{
     "Construction Project" = "Construction Projects"
     "Business Services" = "Business Services"
     "Development Project" = "Development Projects"
@@ -234,97 +241,115 @@ $LookupBusinessName = [ordered]@{
     "Pre-Construction" = "Pre-Construction Projects"
 }
 
-foreach ($item in $LookupBusinessName.GetEnumerator()) {
+foreach ($item in $LookupContractTypeFunction2.GetEnumerator()) {
+    $ComboProjectType.Items.Add($item.Key)
+}
+
+if ($ComboProjectType.SelectedIndex -gt -1) {
+    $LookupContractTypeSiteURLValue = $LookupContractTypeFunction2[$ComboProjectType.SelectedItem]
+}
+
+#Lookup Business Type
+$LookupBusinessNameFunction = [ordered]@{
+    "Direct Services" = "Direct"
+    "Housing" = "Housing"
+    "Projects" = "Projects"
+    "Property Services" = "Property"
+    "M&E" = "M&E"
+    "Painting" = "Paint"
+}
+foreach ($item in $LookupBusinessNameFunction.GetEnumerator()) {
     $ComboBusinessName.Items.Add($item.Key)
 }
-
-#... When the user selects something, then...
 if ($ComboProjectType.SelectedIndex -gt -1) {
-    $LookupValue2 = $LookupContractType[$ComboProjectType.SelectedItem]
-    # lookupValue should now equal 'Construction'
+    $LookupBusinessValue = $LookupBusinessNameFunction[$ComboBusinessName.SelectedItem]
+
 }
 
-#Introduction
+#Lookup Selection Region
+$LookupRegionFunction = [ordered]@{
+    "North West" = "NW"
+    "Midlands" = "Mid"
+}
+foreach ($item in $LookupRegionFunction.GetEnumerator()) {
+    $ComboRegion.Items.Add($item.Key)
+}
+if ($ComboRegion.SelectedIndex -gt -1) {
+    $LookupRegionValue = $LookupRegionFunction[$ComboRegion.SelectedItem]
+}
 
-#Progress Bar 1
-$progressbar.Maximum = 10;
-$progressbar.Value = 1;
+#Initialize the Progress Bar
+$progressbar.Maximum = 100;
+$progressbar.Value = 0;
 
-$OutputBox.text  = "$LookupValue2"
 
+#Connect to PNPOnline & Set Variables
 $username = "svc_pwsonline@seddon.co.uk"
 $password = "8St@eI@%rpt1Pr"
 $secstr = New-Object -TypeName System.Security.SecureString
 $password.ToCharArray() | ForEach-Object {$secstr.AppendChar($_)}
 $cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $username, $secstr
-
-Connect-PnPOnline -Url 'https://seddonsolutions.sharepoint.com/sites/ProjectWorkspace' -Credential $cred
-
-#Progress Bar 1
-$progressbar.Maximum = 10;
-$progressbar.Value = 2;
-
+$SiteURL = "https://seddonsolutions.sharepoint.com/sites/ProjectWorkspace"
 $PWSID = $TextBoxProjectNumber.text
 $ContractName = $TextBoxProjectName.text
 
-$OutputBox.text  = "Copying $LookupValue1 Folder Template..."
+$SourceURL = "Templates/$LookupContractTypeSiteURLValue Template"
+$DestinationURL = "$LookupContractTypeSiteURLValue/$PWSID $ContractName"
 
-Copy-PnPFile -SourceUrl 'Templates/$LookupValue1 Template' -TargetUrl "$LookupValue1/$PWSID $ContractName" -Force
+Connect-PnPOnline -Url "$SiteURL" -Credential $cred
+
+#Progress Bar 1
+$progressbar.Maximum = 100;
+$progressbar.Value = 5;
+
+Copy-PnPFile -SourceUrl "$SourceURL" -TargetUrl "$DestinationURL" -Force
 
 #Progress Bar 4
-$progressbar.Maximum = 10;
-$progressbar.Value = 4;
+$progressbar.Maximum = 100;
+$progressbar.Value = 15;
 
-#Set Variable
-$SiteURL = "https://seddonsolutions.sharepoint.com/sites/ProjectWorkspace"
-$ListName = "$LookupValue1"
-$ParentFolderURL = "/$LookupValue1" #Parent Folder Site Path URL 
-$UserAccount1 = "PWS - $LookupValue2"
-$ParentFolderURL1 = "/LookupValue1/$PWSID $ContractName" #Sub Folder Site Path URL 
+#Set Variables for Setting Permissons
+$ListName = "$LookupContractTypeSiteURLValue"
+$ParentFolderURL = "/$LookupContractTypeSiteURLValue" #Parent Folder Site Path URL 
+$UserGroupGeneric = "PWS - $LookupRegionValue$LookupBusinessValue$LookupContractTypeADValue"
+#$UserGroupLegal = "PWS - Legal Team"
+#$UserGroupSHEQ = "PWS - SHEQ Team"
+$NewFolderURL = "/$LookupContractTypeSiteURLValue/$PWSID $ContractName" #Sub Folder Site Path URL 
 
-#Progress Bar 6
-$progressbar.Maximum = 10;
-$progressbar.Value = 6;
+#Progress Bar 6`
+$progressbar.Maximum = 100;
+$progressbar.Value = 20;
 
+############################################################
 #Get All Folder from given location, filter out hidden and filter out all but newly created folder
 $AllFolders= Get-PnPFolderItem -ItemType Folder -FolderSiteRelativeUrl $ParentFolderURL | Where {($_.Name -eq "$PWSID $ContractName") -and (-Not($_.Name.StartsWith("_")))}
  
-#Grant Permission to Filtered Folder 
+#Grant Generic Permissions to Top Level Folder
 ForEach($Folder in $AllFolders)
 {
-    Write-host ("Granted Permission to '{0}' at {1} " -f $Folder.Name,$Folder.ServerRelativeUrl)
+    Write-host ("Granted $UserGroupGeneric Permission to '{0}' at {1} " -f $Folder.Name,$Folder.ServerRelativeUrl)
+    Set-PnPListItemPermission -List $ListName -Identity $Folder.ListItemAllFields -User "$UserGroupGeneric" -AddRole 'READ' -ClearExisting
+}
+#Grant Generic Permissions to Sub Folders
+$AllFolders1= Get-PnPFolderItem -ItemType Folder -FolderSiteRelativeUrl $NewFolderURL | Where {($_.Name -ne "Forms") -and (-Not($_.Name.StartsWith("_")))
+}
+ForEach($Folder1 in $AllFolders1)
+{
+    Write-host ("Granted $UserGroupGeneric Permission to '{0}' at {1} " -f $Folder1.Name,$Folder1.ServerRelativeUrl)
     #Grant Contribute permissions to the Folder
-    Set-PnPListItemPermission -List $ListName -Identity $Folder.ListItemAllFields -User $UserAccount -AddRole 'READ' -ClearExisting
+    Set-PnPListItemPermission -List $ListName -Identity $Folder1.ListItemAllFields -User "$UserGroupGeneric" -AddRole 'PWS Contributer' -ClearExisting
 }
 
-#Progress Bar 8
-$progressbar.Maximum = 10;
-$progressbar.Value = 8;
-
-#Get All Folder from given location, filter out hidden and filter out all but newly created folder
-$AllFolders1= Get-PnPFolderItem -ItemType Folder -FolderSiteRelativeUrl $ParentFolderURL1 | Where {($_.Name -ne "Forms") -and (-Not($_.Name.StartsWith("_")))}
+##########################################################
 
 #Progress Bar 9
-$progressbar.Maximum = 10;
-$progressbar.Value = 9;
+$progressbar.Maximum = 100;
+$progressbar.Value = 100;
 
-#Grant Permission to Filtered Folder 
-ForEach($Folder1 in $AllFolders1)
+New-BurntToastNotification -Text "Project Workspace", 'Your Project Workspace Script has now completed!' -applogo "<yourimagepath>"
 
-
-{
-    Write-host ("Granted Permission to '{0}' at {1} " -f $Folder1.Name,$Folder1.ServerRelativeUrl)
-    #Grant Contribute permissions to the Folder
-    Set-PnPListItemPermission -List $ListName -Identity $Folder1.ListItemAllFields -User $UserAccount -AddRole 'PWS Contributer' -ClearExisting
-}
-
-#Progress Bar 1
-$progressbar.Maximum = 10;
-$progressbar.Value = 10;
-
-[System.Reflection.Assembly]::LoadWithPartialName("Microsoft.VisualBasic")
-[Microsoft.VisualBasic.Interaction]::MsgBox('Project Workspace Script Completed!', 'MsgBoxSetForeground,Information', 'Completed!')
+#[System.Reflection.Assembly]::LoadWithPartialName("Microsoft.VisualBasic")
+#[Microsoft.VisualBasic.Interaction]::MsgBox("$LookupContractTypeSiteURLValue", 'MsgBoxSetForeground,Information', 'Completed!')
 })
-
 
 [void]$PWSForm.ShowDialog()
