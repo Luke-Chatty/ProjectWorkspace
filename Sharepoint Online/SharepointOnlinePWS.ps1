@@ -16,7 +16,7 @@ Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 $PWSForm                         = New-Object system.Windows.Forms.Form
-$PWSForm.ClientSize              = '410,450'
+$PWSForm.ClientSize              = '410,400'
 $PWSForm.text                    = "PWS - New Construction Project"
 $PWSForm.TopMost                 = $false
 $PWSForm.BackColor               = "#f7fcff"
@@ -327,7 +327,7 @@ $AllFolders= Get-PnPFolderItem -ItemType Folder -FolderSiteRelativeUrl $ParentFo
 #Grant Generic Permissions to Top Level Folder
 ForEach($Folder in $AllFolders)
 {
-    Write-host ("Granted $UserGroupGeneric Permission to '{0}' at {1} " -f $Folder.Name,$Folder.ServerRelativeUrl)
+    #Write-host ("Granted $UserGroupGeneric Permission to '{0}' at {1} " -f $Folder.Name,$Folder.ServerRelativeUrl)
     Set-PnPListItemPermission -List $ListName -Identity $Folder.ListItemAllFields -User "$UserGroupGeneric" -AddRole 'READ' -ClearExisting
 }
 #Grant Generic Permissions to Sub Folders
@@ -335,7 +335,7 @@ $AllFolders1= Get-PnPFolderItem -ItemType Folder -FolderSiteRelativeUrl $NewFold
 }
 ForEach($Folder1 in $AllFolders1)
 {
-    Write-host ("Granted $UserGroupGeneric Permission to '{0}' at {1} " -f $Folder1.Name,$Folder1.ServerRelativeUrl)
+    #Write-host ("Granted $UserGroupGeneric Permission to '{0}' at {1} " -f $Folder1.Name,$Folder1.ServerRelativeUrl)
     #Grant Contribute permissions to the Folder
     Set-PnPListItemPermission -List $ListName -Identity $Folder1.ListItemAllFields -User "$UserGroupGeneric" -AddRole 'PWS Contributer' -ClearExisting
 }
