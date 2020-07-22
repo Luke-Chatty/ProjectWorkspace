@@ -16,8 +16,8 @@ Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 $PWSForm                         = New-Object system.Windows.Forms.Form
-$PWSForm.ClientSize              = '410,400'
-$PWSForm.text                    = "PWS - New Construction Project"
+$PWSForm.ClientSize              = '500,400'
+$PWSForm.text                    = "PWS - New Sharepoint Online Folder"
 $PWSForm.TopMost                 = $false
 $PWSForm.BackColor               = "#f7fcff"
 
@@ -41,7 +41,7 @@ $Seddonlogo = [System.Drawing.Image]::FromStream($ms, $true)
 $pictureBox = new-object Windows.Forms.PictureBox
 $pictureBox.Width =  224
 $pictureBox.Height =  65 
-$pictureBox.Location = New-Object System.Drawing.Size(112,20) 
+$pictureBox.Location = New-Object System.Drawing.Size(162,20) 
 $pictureBox.Image = $Seddonlogo;
 
 $LabelIntro1                          = New-Object system.Windows.Forms.Label
@@ -50,16 +50,16 @@ $LabelIntro1.AutoSize                 = $true
 $LabelIntro1.width                    = 25
 $LabelIntro1.height                   = 10
 $LabelIntro1.Anchor                   = 'top,left'
-$LabelIntro1.location                 = New-Object System.Drawing.Point(13,85)
+$LabelIntro1.location                 = New-Object System.Drawing.Point(63,85)
 $LabelIntro1.Font                     = 'Segoe UI,10'
 
 $LabelIntro2                          = New-Object system.Windows.Forms.Label
-$LabelIntro2.text                     = "Construction Project Folder."
+$LabelIntro2.text                     = "Sharepoint Online Folder."
 $LabelIntro2.AutoSize                 = $true
 $LabelIntro2.width                    = 25
 $LabelIntro2.height                   = 10
 $LabelIntro2.Anchor                   = 'top,left'
-$LabelIntro2.location                 = New-Object System.Drawing.Point(111,105)
+$LabelIntro2.location                 = New-Object System.Drawing.Point(165,105)
 $LabelIntro2.Font                     = 'Segoe UI,10,style=Bold,Underline'
 $LabelIntro2.ForeColor                = "#022943"
 
@@ -69,7 +69,7 @@ $ComboProjectType.width          = 190
 $ComboProjectType.height         = 25
 $ComboProjectType.Anchor         = 'top,right'
 @('Business Services','Construction Project','Development Project','Engineering Services Tender','Pre-Qualification','Pre-Construction') | ForEach-Object {[void] $ComboProjectType.Items.Add($_)}
-$ComboProjectType.location       = New-Object System.Drawing.Point(170,130)
+$ComboProjectType.location       = New-Object System.Drawing.Point(210,130)
 $ComboProjectType.Font           = 'Segoe UI,10'
 
 $LabelProjectType                = New-Object system.Windows.Forms.Label
@@ -95,7 +95,7 @@ $TextBoxProjectNumber.multiline  = $false
 $TextBoxProjectNumber.width      = 190
 $TextBoxProjectNumber.height     = 25
 $TextBoxProjectNumber.Anchor     = 'top,right'
-$TextBoxProjectNumber.location   = New-Object System.Drawing.Point(170,160)
+$TextBoxProjectNumber.location   = New-Object System.Drawing.Point(210,160)
 $TextBoxProjectNumber.Font       = 'Microsoft Sans Serif,10'
 
 $LabelProjectName                = New-Object system.Windows.Forms.Label
@@ -112,7 +112,7 @@ $TextBoxProjectName.multiline    = $false
 $TextBoxProjectName.width        = 190
 $TextBoxProjectName.height       = 25
 $TextBoxProjectName.Anchor       = 'top,right'
-$TextBoxProjectName.location     = New-Object System.Drawing.Point(170,190)
+$TextBoxProjectName.location     = New-Object System.Drawing.Point(210,190)
 $TextBoxProjectName.Font         = 'Microsoft Sans Serif,10'
 
 $LabelBusinessName               = New-Object system.Windows.Forms.Label
@@ -130,7 +130,7 @@ $ComboBusinessName.width         = 190
 $ComboBusinessName.height        = 25
 $ComboBusinessName.Anchor        = 'top,right'
 @('Housing','Projects','Property Services','Direct Services','Painting','M&E') | ForEach-Object {[void] $ComboBusinessName.Items.Add($_)}
-$ComboBusinessName.location      = New-Object System.Drawing.Point(170,220)
+$ComboBusinessName.location      = New-Object System.Drawing.Point(210,220)
 $ComboBusinessName.Font          = 'Segoe UI,10'
 
 $LabelRegion            = New-Object system.Windows.Forms.Label
@@ -148,7 +148,7 @@ $ComboRegion.width         = 190
 $ComboRegion.height        = 25
 $ComboRegion.Anchor        = 'top,right'
 @('North West','Midlands') | ForEach-Object {[void] $ComboRegion.Items.Add($_)}
-$ComboRegion.location      = New-Object System.Drawing.Point(170,250)
+$ComboRegion.location      = New-Object System.Drawing.Point(210,250)
 $ComboRegion.Font          = 'Segoe UI,10'
 
 $CreateButton                    = New-Object system.Windows.Forms.Button
@@ -156,7 +156,7 @@ $CreateButton.text               = "Create PWS Folder"
 $CreateButton.width              = 150
 $CreateButton.height             = 30
 $CreateButton.Anchor             = 'top,left'
-$CreateButton.location           = New-Object System.Drawing.Point(136,296)
+$CreateButton.location           = New-Object System.Drawing.Point(186,296)
 $CreateButton.Font               = 'Segoe UI,10'
 $CreateButton.Enabled            = $false
 
@@ -164,7 +164,7 @@ $ProgressBar                     = New-Object system.Windows.Forms.ProgressBar
 $ProgressBar.BackColor           = "#ffffff"
 $ProgressBar.width               = 354
 $ProgressBar.height              = 27
-$ProgressBar.location            = New-Object System.Drawing.Point(27,333)
+$ProgressBar.location            = New-Object System.Drawing.Point(87,333)
 
 $TextBox          = New-Object system.Windows.Forms.TextBox
 $TextBox.text      =  $UserAccount1
@@ -176,7 +176,7 @@ $TextBox.location   = New-Object System.Drawing.Point(170,420)
 $TextBox.Font       = 'Microsoft Sans Serif,10'
 
 
-$PWSForm.controls.AddRange(@($Picturebox,$LabelIntro1,$LabelIntro2,$ComboProjectType,$LabelProjectType,$LabelProjectNumber,$TextBoxProjectNumber,$LabelProjectName,$TextBoxProjectName,$LabelBusinessName,$ComboBusinessName,$ComboRegion,$ProgressBar,$CreateButton,$LabelRegion,$Textbox))
+$PWSForm.controls.AddRange(@($Picturebox,$LabelIntro1,$LabelIntro2,$ComboProjectType,$LabelProjectType,$LabelProjectNumber,$TextBoxProjectNumber,$LabelProjectName,$TextBoxProjectName,$LabelBusinessName,$ComboBusinessName,$ComboRegion,$ProgressBar,$CreateButton,$LabelRegion))
 
 
 #Silently Import Module
@@ -237,8 +237,8 @@ $LookupContractTypeFunction2 = [ordered]@{
     "Construction Project" = "Construction Projects"
     "Business Services" = "Business Services"
     "Development Project" = "Development Projects"
-    "Pre-Qualification" = "Pre-Qualification Projects"
-    "Pre-Construction" = "Pre-Construction Projects"
+    "Pre-Qualification" = "PreQualification Projects"
+    "Pre-Construction" = "PreConstruction Projects"
 }
 
 foreach ($item in $LookupContractTypeFunction2.GetEnumerator()) {
@@ -346,7 +346,7 @@ ForEach($Folder1 in $AllFolders1)
 $progressbar.Maximum = 100;
 $progressbar.Value = 100;
 
-New-BurntToastNotification -Text "Project Workspace", 'Your Project Workspace Script has now completed!' -applogo "<yourimagepath>"
+New-BurntToastNotification -Text "Project Workspace", 'Your Project Workspace Script has now completed!'
 
 #[System.Reflection.Assembly]::LoadWithPartialName("Microsoft.VisualBasic")
 #[Microsoft.VisualBasic.Interaction]::MsgBox("$LookupContractTypeSiteURLValue", 'MsgBoxSetForeground,Information', 'Completed!')
