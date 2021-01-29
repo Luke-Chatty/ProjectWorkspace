@@ -285,7 +285,7 @@ $progressbar.Value = 0;
 
 #Connect to PNPOnline & Set Variables
 $username = "svc_pwsonline@seddon.co.uk"
-$password = "8St@eI@%rpt1Pr"
+$password = "Lukey123!"
 $secstr = New-Object -TypeName System.Security.SecureString
 $password.ToCharArray() | ForEach-Object {$secstr.AppendChar($_)}
 $cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $username, $secstr
@@ -296,7 +296,7 @@ $ContractName = $TextBoxProjectName.text
 $SourceURL = "Templates/$LookupContractTypeSiteURLValue Template"
 $DestinationURL = "$LookupContractTypeSiteURLValue/$PWSID $ContractName"
 
-Connect-PnPOnline -Url "$SiteURL" -Credential $cred
+Connect-PnPOnline -Url "$SiteURL" -Credential $cred -SPOManagementShell
 
 #Progress Bar 1
 $progressbar.Maximum = 100;
